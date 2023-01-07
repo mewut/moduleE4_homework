@@ -4,3 +4,4 @@
 // Функция должна возвращать true или false.
 
 
+console.log('Hello, World!');
