@@ -89,6 +89,3 @@ const sumPower = function () {
 }
 
 sumPower();
-
-// надо будет добавить время работы приборов!
-
