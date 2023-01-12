@@ -22,3 +22,73 @@
 // использование синтаксиса ES6 (кроме функции-конструкторов) и т. д.
 
 
+
+// родительский класс электроприборов. По умолчанию выключены. 
+const ElectricalAppliance = new Object(
+    {
+        power: 0,
+        plugIn: function () {
+            console.log(`Прибор ${this.name} включен`);
+            return true;
+        },
+        unPlug: function () {
+            console.log(`Прибор ${this.name} выключен`);
+            return true;
+        },
+        showPower: function () {
+            console.log(`${this.power} W`);
+        }
+    }
+)
+
+// создадим электроприборы. Комп, лампа и фен. Каждому прибору добавим по дополнительному свойству. 
+// начнем с компа. 
+const Comp = Object.create(ElectricalAppliance);
+Comp.name = 'Комп';
+
+Comp.power = 75; 
+Comp.size = function () {
+    size = 24;
+    console.log(`Диагональ экрана ${size} дюймов`);
+}
+
+// теперь лампа
+const Lamp = Object.create(ElectricalAppliance);
+Lamp.name = 'Лампа';
+
+Lamp.power = 12; 
+Lamp.lumen = function () {
+    lumen = 100;
+    console.log(`Светимость лампы ${lumen} люменов`);
+}
+
+// и фен
+const HairDryer = Object.create(ElectricalAppliance);
+HairDryer.name = 'Фен';
+
+HairDryer.power = 60;
+HairDryer.heat = function() {
+    heat = 130
+    console.log(`Фен нагрелся до ${heat} градусов`)
+}
+
+// включаем электроприборы при помощи булевых значений и считаем, сколько они потратят энергии.
+// например, включим комп и фен, а лампу выключим
+const collection = [Lamp, Comp, HairDryer];
+let item = 0;
+const sumPower = function () {
+    Lamp.plugIn = false;
+    Comp.plugIn = true;
+    HairDryer.plugIn = true;
+    for (let i = 0; i < collection.length; i++) {
+        if (collection[i].plugIn === true) {
+            item += collection[i].power;
+        }
+    }
+    console.log(`Потрачено электроэнергии ${item}`);
+}
+
+sumPower();
+
+// надо будет добавить время работы приборов!
+
